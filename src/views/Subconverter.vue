@@ -510,9 +510,10 @@ export default {
 
       this.$axios
         .post(shortUrlBackend, data, {
-          header: {
-            "Content-Type": "application/form-data; charset=utf-8"
-          }
+          // 移除Content-Type设置，让浏览器自动处理FormData的Content-Type
+          // header: {
+          //   "Content-Type": "application/form-data; charset=utf-8"
+          // }
         })
         .then(res => {
           if (res.data.Code === 1 && res.data.ShortUrl !== "") {
