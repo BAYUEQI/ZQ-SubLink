@@ -550,6 +550,12 @@ export default {
         return false;
       }
 
+      // 检查是否配置了上传服务
+      if (!configUploadBackend) {
+        this.$message.error("未配置远程配置上传服务，请设置VUE_APP_CONFIG_UPLOAD_API环境变量");
+        return false;
+      }
+
       this.loading = true;
 
       let body = {
@@ -740,7 +746,7 @@ export default {
       return itemValue
     },
     setLocalStorageItem(itemKey, itemValue) {
-      const ttl = process.env.VUE_APP_CACHE_TTL
+      const ttl = process.env.VUE_APP_CACHE_TTL || 86400 // 默认24小时
       const now = +new Date()
 
       let data = {
