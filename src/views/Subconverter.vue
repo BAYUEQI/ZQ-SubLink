@@ -412,7 +412,7 @@ export default {
         value: "",
       })
     },
-    makeUrl() {
+    async makeUrl() {
       if (this.form.sourceSubUrl === "" || this.form.clientType === "") {
         this.$message.error("订阅链接与客户端为必填项");
         return false;
@@ -496,6 +496,21 @@ export default {
 
       this.$copyText(this.customSubUrl);
       this.$message.success("定制订阅已复制到剪贴板");
+
+      // === 新增：自动上传到Pastebin ===
+      try {
+        const res = await this.$axios.post('https://file.520jacky.dpdns.org/api/paste', {
+          text: this.customSubUrl
+        });
+        if (res.data && res.data.code === 1) {
+          this.customShortSubUrl = `https://file.520jacky.dpdns.org/${res.data.id}`;
+        } else {
+          this.customShortSubUrl = ""; // 失败时清空
+        }
+      } catch (e) {
+        this.customShortSubUrl = ""; // 失败时清空
+      }
+      // === 新增结束 ===
     },
     makeShortUrl() {
       if (this.customSubUrl === "") {
