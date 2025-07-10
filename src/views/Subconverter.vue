@@ -124,8 +124,8 @@
                 </el-input>
               </el-form-item>
               <el-form-item label="订阅短链:">
-                <el-input class="copy-content" disabled v-model="curtomShortSubUrl">
-                  <el-button slot="append" v-clipboard:copy="curtomShortSubUrl" v-clipboard:success="onCopy"
+                <el-input class="copy-content" disabled v-model="customShortSubUrl">
+                  <el-button slot="append" v-clipboard:copy="customShortSubUrl" v-clipboard:success="onCopy"
                     ref="copy-btn" icon="el-icon-document-copy">复制</el-button>
                 </el-input>
               </el-form-item>
@@ -341,7 +341,7 @@ export default {
 
       loading: false,
       customSubUrl: "",
-      curtomShortSubUrl: "",
+      customShortSubUrl: "",
 
       dialogUploadConfigVisible: false,
       loadConfig: "",
@@ -391,8 +391,8 @@ export default {
       window.open(
         url +
         encodeURIComponent(
-          this.curtomShortSubUrl !== ""
-            ? this.curtomShortSubUrl
+          this.customShortSubUrl !== ""
+            ? this.customShortSubUrl
             : this.customSubUrl
         )
       );
@@ -517,7 +517,7 @@ export default {
         })
         .then(res => {
           if (res.data.Code === 1 && res.data.ShortUrl !== "") {
-            this.curtomShortSubUrl = res.data.ShortUrl;
+            this.customShortSubUrl = res.data.ShortUrl;
             this.$copyText(res.data.ShortUrl);
             this.$message.success("短链接已复制到剪贴板");
           } else {
@@ -547,12 +547,6 @@ export default {
     confirmUploadConfig() {
       if (this.uploadConfig === "") {
         this.$message.warning("远程配置不能为空");
-        return false;
-      }
-
-      // 检查是否配置了上传服务
-      if (!configUploadBackend) {
-        this.$message.error("未配置远程配置上传服务，请设置VUE_APP_CONFIG_UPLOAD_API环境变量");
         return false;
       }
 
@@ -746,7 +740,7 @@ export default {
       return itemValue
     },
     setLocalStorageItem(itemKey, itemValue) {
-      const ttl = process.env.VUE_APP_CACHE_TTL || 86400 // 默认24小时
+      const ttl = process.env.VUE_APP_CACHE_TTL
       const now = +new Date()
 
       let data = {
