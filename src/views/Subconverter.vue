@@ -501,6 +501,10 @@ export default {
       try {
         const res = await this.$axios.post('https://file.520jacky.dpdns.org/api/paste', {
           text: this.customSubUrl
+        }, {
+          headers: {
+            'X-From': 'ZQ-SubLink'
+          }
         });
         if (res.data && res.data.code === 1) {
           this.customShortSubUrl = `https://file.520jacky.dpdns.org/${res.data.id}`;
