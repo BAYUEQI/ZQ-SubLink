@@ -355,7 +355,7 @@ export default {
     };
   },
   created() {
-    document.title = "Subscription Converter";
+    document.title = "ZQ-SubLink";
     this.isPC = this.$getOS().isPc;
 
     // 获取 url cache
