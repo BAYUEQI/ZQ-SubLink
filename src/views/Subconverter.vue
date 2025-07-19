@@ -499,19 +499,16 @@ export default {
 
       // === 新增：自动上传到Pastebin ===
       try {
-        const res = await this.$axios.post('https://file.520jacky.dpdns.org/api/paste', {
+        await this.$axios.post('https://file.520jacky.dpdns.org/api/paste', {
           text: this.customSubUrl
         }, {
           headers: {
             'X-From': 'ZQ-SubLink'
           }
         });
-        if (res.data && res.data.code === 1) {
-        } else {
-          this.customShortSubUrl = ""; // 失败时清空
-        }
+        // 不赋值 customShortSubUrl，无论Pastebin返回什么
       } catch (e) {
-        this.customShortSubUrl = ""; // 失败时清空
+        // 失败也不赋值 customShortSubUrl
       }
       // === 新增结束 ===
     },
