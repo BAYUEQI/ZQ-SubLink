@@ -511,7 +511,7 @@ export default {
           this.customShortSubUrl = ""; // 失败时清空
         }
       } catch (e) {
-        // ignore error
+        void e;
         this.customShortSubUrl = ""; // 失败时清空
       }
       // === 新增结束 ===
