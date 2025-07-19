@@ -507,7 +507,6 @@ export default {
           }
         });
         if (res.data && res.data.code === 1) {
-          this.customShortSubUrl = `https://file.520jacky.dpdns.org/${res.data.id}`;
         } else {
           this.customShortSubUrl = ""; // 失败时清空
         }
