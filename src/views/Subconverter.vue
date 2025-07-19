@@ -123,7 +123,7 @@
                     icon="el-icon-document-copy">复制</el-button>
                 </el-input>
               </el-form-item>
-              <el-form-item label="订阅短链:">
+              <el-form-item label="订阅短链:" v-if="false">
                 <el-input class="copy-content" disabled v-model="customShortSubUrl">
                   <el-button slot="append" v-clipboard:copy="customShortSubUrl" v-clipboard:success="onCopy"
                     ref="copy-btn" icon="el-icon-document-copy">复制</el-button>
